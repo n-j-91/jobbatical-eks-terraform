@@ -1,5 +1,11 @@
-variable "access_key" {}
-variable "secret_key" {}
+variable "access_key" {
+  default = "AKIAJH3R7GFTC3LZVPWQ"
+}
+
+variable "secret_key" {
+  default = "6riC39xIjsz4ZK7mMxpHMX0aInCmUQYL8hWcZnhc"
+}
+
 variable "region" {
   default = "us-east-1"
 }
