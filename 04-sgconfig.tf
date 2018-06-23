@@ -15,7 +15,17 @@ resource "aws_security_group" "jobbatical-eks-master-sg" {
   }
 }
 
-resource "aws_security_group_rule" "jobbatical-eks-master-sg-inbound-1" {
+resource "aws_security_group_rule" "jobbatical-eks-master-sg-ingress-ws" {
+  cidr_blocks       = ["0.0.0.0/32"]
+  description       = "Allow local workstations to communicate with the cluster API Server"
+  from_port         = 443
+  protocol          = "tcp"
+  security_group_id = "${aws_security_group.jobbatical-eks-master-sg.id}"
+  to_port           = 443
+  type              = "ingress"
+}
+
+resource "aws_security_group_rule" "jobbatical-eks-master-sg-ingress-node-https" {
   description              = "Allow local workstations to communicate with the cluster API Server"
   from_port                = 443
   protocol                 = "tcp"
