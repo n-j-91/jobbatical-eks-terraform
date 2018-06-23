@@ -6,7 +6,7 @@ variable "cluster-name" {
 data "aws_availability_zones" "available" {}
 
 resource "aws_vpc" "jobbatical-vpc" {
-  cidr_block = "7.0.0.0/16"
+  cidr_block = "10.0.0.0/16"
 
   tags = "${
     map(
@@ -20,7 +20,7 @@ resource "aws_subnet" "jobbatical-az-1-subnets" {
   count = 2
 
   availability_zone = "${data.aws_availability_zones.available.names[0]}"
-  cidr_block        = "7.0.${count.index}.0/24"
+  cidr_block        = "10.0.${count.index}.0/24"
   vpc_id            = "${aws_vpc.jobbatical-vpc.id}"
 
   tags = "${
@@ -35,7 +35,7 @@ resource "aws_subnet" "jobbatical-az-2-subnets" {
   count = 2
 
   availability_zone = "${data.aws_availability_zones.available.names[1]}"
-  cidr_block        = "7.0.${count.index+2}.0/24"
+  cidr_block        = "10.0.${count.index+2}.0/24"
   vpc_id            = "${aws_vpc.jobbatical-vpc.id}"
 
   tags = "${
