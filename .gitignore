@@ -1,4 +1,5 @@
 *tfstate*
 .terraform/*
+.kube/*
 config-map-aws-auth.yaml
 jobbatical-kubeconfig
