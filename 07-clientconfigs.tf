@@ -55,13 +55,3 @@ KUBECONFIG
 output "jobbatical-kubeconfig" {
   value = "${local.kubeconfig}"
 }
-
-resource "null_resource" "forprovisioner" {
-  provisioner "local-exec" {
-    command = "terraform output jobbatical-kubeconfig > jobbatical-kubeconfig"
-  }
-
-  provisioner "local-exec" {
-    command = "terraform output config-map-aws-auth > config-map-aws-auth.yaml"
-  }
-}
