@@ -49,6 +49,9 @@ users:
         - "token"
         - "-i"
         - "${var.cluster-name}"
+      env:
+        - name: AWS_PROFILE
+          value: "${var.profilename}"
 KUBECONFIG
 }
 
