@@ -4,7 +4,7 @@ resource "aws_eks_cluster" "jobbatical-eks-cluster" {
 
   vpc_config {
     security_group_ids = ["${aws_security_group.jobbatical-eks-sg.id}"]
-    subnet_ids         = ["${aws_subnet.jobbatical-az-1-subnets.*.id[1]}", "${aws_subnet.jobbatical-az-2-subnets.*.id[1]}"]
+    subnet_ids         = ["${aws_subnet.jobbatical-az-1-subnets.*.id[0]}", "${aws_subnet.jobbatical-az-2-subnets.*.id[0]}"]
   }
 
   depends_on = [
