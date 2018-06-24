@@ -101,7 +101,9 @@ resource "aws_instance" "jobbatical-jenkins-server" {
       "kubectl apply --force -f /tmp/mongodb-replicaset.yaml -n jobbatical || true",
       "kubectl apply --force -f /tmp/mongodb-service.yaml -n jobbatical || true",
       "kubectl apply --force -f /tmp/node-todo-service.yaml -n jobbatical || true",
-      "kubectl apply --force -f /tmp/node-todo-replicaset.yaml -n jobbatical || true",
+
+      //"kubectl apply --force -f /tmp/node-todo-replicaset.yaml -n jobbatical || true",
+      "echo ${aws_ecr_repository.jobbatical-ecr.repository_url} > ~/dockerregistry",
     ]
   }
 }
