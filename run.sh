@@ -19,6 +19,7 @@ else
     terraform apply -var "access_key=$1" -var "secret_key=$2" -var "deployer_key_file=$3" -var "deployer_pvt_key_file=$4" -var "profilename=$AWS_PROFILE_NAME";
 
     mkdir -p ./.kube && cp files/jobbatical-kubeconfig ./.kube/
-    sed '1,2d' $(pwd)/.kube/jobbatical-kubeconfig | tee $(pwd)/.kube/jobbatical-kubeconfig
-    KUBECONFIG=$(pwd)"/.kube/jobbatical-kubeconfig" kubectl apply -f files/config-map-aws-auth.yaml
+    sed '1,2d' $(pwd)/.kube/jobbatical-kubeconfig > $(pwd)/.kube/jobbatical-kubeconfig-v1
+    sed '1,2d' $(pwd)/files/config-map-aws-auth.yaml > $(pwd)/files/config-map-aws-auth-v1.yaml
+    KUBECONFIG=$(pwd)"/.kube/jobbatical-kubeconfig-v1" kubectl apply -f files/config-map-aws-auth-v1.yaml
 fi

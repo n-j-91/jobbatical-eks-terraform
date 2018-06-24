@@ -9,6 +9,26 @@ data "template_file" "configure-awscli" {
   }
 }
 
+data "template_file" "mongodb-replicaset" {
+  template = "${file("./scripts/mongodb-replicaset.tpl")}"
+}
+
+data "template_file" "mongodb-service" {
+  template = "${file("./scripts/mongodb-service.tpl")}"
+}
+
+data "template_file" "node-todo-service" {
+  template = "${file("./scripts/node-todo-service.tpl")}"
+}
+
+data "template_file" "node-todo-replicaset" {
+  template = "${file("./scripts/node-todo-replicaset.tpl")}"
+
+  vars {
+    image_repo = "${aws_ecr_repository.jobbatical-ecr.repository_url}"
+  }
+}
+
 resource "aws_instance" "jobbatical-jenkins-server" {
   ami                         = "${var.jenkins_ami}"
   instance_type               = "t2.small"
@@ -47,6 +67,26 @@ resource "aws_instance" "jobbatical-jenkins-server" {
     destination = "/tmp/configure-awscli.sh"
   }
 
+  provisioner "file" {
+    content     = "${data.template_file.mongodb-replicaset.rendered}"
+    destination = "/tmp/mongodb-replicaset.yaml"
+  }
+
+  provisioner "file" {
+    content     = "${data.template_file.mongodb-service.rendered}"
+    destination = "/tmp/mongodb-service.yaml"
+  }
+
+  provisioner "file" {
+    content     = "${data.template_file.node-todo-service.rendered}"
+    destination = "/tmp/node-todo-service.yaml"
+  }
+
+  provisioner "file" {
+    content     = "${data.template_file.node-todo-replicaset.rendered}"
+    destination = "/tmp/node-todo-replicaset.yaml"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "sed -i '1,2d' /tmp/configure-awscli.sh",
@@ -57,6 +97,11 @@ resource "aws_instance" "jobbatical-jenkins-server" {
       "mkdir -p ~/.kube",
       "mv /tmp/jobbatical-kubeconfig ~/.kube/",
       "echo 'export KUBECONFIG=~/.kube/jobbatical-kubeconfig' >> ~/.bashrc",
+      "kubectl create namespace jobbatical || true",
+      "kubectl apply --force -f /tmp/mongodb-replicaset.yaml -n jobbatical || true",
+      "kubectl apply --force -f /tmp/mongodb-service.yaml -n jobbatical || true",
+      "kubectl apply --force -f /tmp/node-todo-service.yaml -n jobbatical || true",
+      "kubectl apply --force -f /tmp/node-todo-replicaset.yaml -n jobbatical || true",
     ]
   }
 }
