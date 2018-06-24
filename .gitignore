@@ -3,3 +3,4 @@
 .kube/*
 config-map-aws-auth.yaml
 jobbatical-kubeconfig
+files/*

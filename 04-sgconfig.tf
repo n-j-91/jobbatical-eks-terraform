@@ -67,7 +67,7 @@ resource "aws_security_group_rule" "jobbatical-eks-minion-sg-ingress-self" {
 
 resource "aws_security_group_rule" "jobbatical-eks-minion-sg-ingress-cluster" {
   description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
-  from_port                = 1025
+  from_port                = 0
   protocol                 = "tcp"
   security_group_id        = "${aws_security_group.jobbatical-eks-minion-sg.id}"
   source_security_group_id = "${aws_security_group.jobbatical-eks-master-sg.id}"
