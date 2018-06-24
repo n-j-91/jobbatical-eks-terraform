@@ -23,7 +23,7 @@ variable "deployer_key_file" {}
 variable "deployer_pvt_key_file" {}
 
 variable "jenkins_ami" {
-  default = "ami-0b1e3825d1162ae43"
+  default = "ami-0a633ca1b9d4db59b"
 }
 
 variable "account_owner" {
