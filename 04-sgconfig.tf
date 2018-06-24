@@ -74,3 +74,40 @@ resource "aws_security_group_rule" "jobbatical-eks-minion-sg-ingress-cluster" {
   to_port                  = 65535
   type                     = "ingress"
 }
+
+resource "aws_security_group" "jobbatical-jenkins-sg" {
+  name        = "jobbatical-jenkins-sg"
+  description = "Allow access to jenkins and access between jenkins to eks"
+  vpc_id      = "${aws_vpc.jobbatical-vpc.id}"
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "jobbatical-jenkins-sg"
+  }
+}
+
+resource "aws_security_group_rule" "jobbatical-jenkins-sg-ingress-ws" {
+  cidr_blocks       = ["0.0.0.0/0"]
+  description       = "Allow local workstations to communicate with jenkins server."
+  from_port         = 22
+  protocol          = "tcp"
+  security_group_id = "${aws_security_group.jobbatical-jenkins-sg.id}"
+  to_port           = 22
+  type              = "ingress"
+}
+
+resource "aws_security_group_rule" "jobbatical-jenkins-sg-ingress-public" {
+  cidr_blocks       = ["0.0.0.0/0"]
+  description       = "Allow local workstations to communicate with jenkins server."
+  from_port         = 80
+  protocol          = "tcp"
+  security_group_id = "${aws_security_group.jobbatical-jenkins-sg.id}"
+  to_port           = 80
+  type              = "ingress"
+}
