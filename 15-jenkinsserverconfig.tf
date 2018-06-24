@@ -5,6 +5,7 @@ data "template_file" "configure-awscli" {
     accesskey   = "${var.access_key}"
     secretkey   = "${var.secret_key}"
     profilename = "${var.profilename}"
+    region      = "${var.region}"
   }
 }
 
@@ -17,29 +18,45 @@ resource "aws_instance" "jobbatical-jenkins-server" {
   associate_public_ip_address = true
 
   //user_data_base64 = "${base64encode(local.jobbatical-eks-minion-userdata)}"
+  connection {
+    user        = "ec2-user"
+    private_key = "${file(var.deployer_pvt_key_file)}"
+    agent       = false
+  }
 
   lifecycle {
     create_before_destroy = true
   }
+
   tags {
     Name = "jobbatical-jenkins-server"
   }
+
   depends_on = [
     "aws_eks_cluster.jobbatical-eks-cluster",
     "null_resource.client-configs",
   ]
+
   provisioner "file" {
     source      = "files/jobbatical-kubeconfig"
-    destination = "/var/lib/jenkins/.kube/config-map-aws-auth.yaml"
+    destination = "/tmp/jobbatical-kubeconfig"
   }
+
   provisioner "file" {
-    source      = "${data.template_file.configure-awscli.rendered}"
+    content     = "${data.template_file.configure-awscli.rendered}"
     destination = "/tmp/configure-awscli.sh"
   }
+
   provisioner "remote-exec" {
     inline = [
+      "sed -i '1,2d' /tmp/configure-awscli.sh",
       "chmod +x /tmp/configure-awscli.sh",
-      "/tmp/configure-awscli.sh",
+      "/bin/bash /tmp/configure-awscli.sh",
+      "rm -f /tmp/configure-awscli.sh",
+      "sed -i '1,2d' /tmp/jobbatical-kubeconfig",
+      "mkdir -p ~/.kube",
+      "mv /tmp/jobbatical-kubeconfig ~/.kube/",
+      "echo 'export KUBECONFIG=~/.kube/jobbatical-kubeconfig' >> ~/.bashrc",
     ]
   }
 }

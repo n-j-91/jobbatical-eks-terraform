@@ -20,8 +20,10 @@ variable "profilename" {
 
 variable "deployer_key_file" {}
 
+variable "deployer_pvt_key_file" {}
+
 variable "jenkins_ami" {
-  default = "ami-0cd46c4c4b84c661f"
+  default = "ami-0b1e3825d1162ae43"
 }
 
 variable "account_owner" {
