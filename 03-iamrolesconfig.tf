@@ -68,5 +68,5 @@ resource "aws_iam_instance_profile" "jobbatical-eks-minion-profile" {
 
 resource "aws_key_pair" "deployer-key" {
   key_name   = "deployer-key"
-  public_key = "${file(var.deployerkeyfile)}"
+  public_key = "${file(var.deployer_key_file)}"
 }

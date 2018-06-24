@@ -58,3 +58,18 @@ KUBECONFIG
 output "jobbatical-kubeconfig" {
   value = "${local.kubeconfig}"
 }
+
+resource "null_resource" "client-configs" {
+  provisioner "local-exec" {
+    command = "terraform output jobbatical-kubeconfig > files/jobbatical-kubeconfig && sed -i '1,2d' files/jobbatical-kubeconfig"
+  }
+
+  provisioner "local-exec" {
+    command = "terraform output config-map-aws-auth > files/config-map-aws-auth.yaml sed -i '1,2d' files/config-map-aws-auth.yaml"
+  }
+
+  depends_on = [
+    "aws_eks_cluster.jobbatical-eks-cluster",
+    "aws_autoscaling_group.jobbatical-eks-minion-asg",
+  ]
+}
