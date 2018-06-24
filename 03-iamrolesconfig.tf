@@ -65,3 +65,8 @@ resource "aws_iam_instance_profile" "jobbatical-eks-minion-profile" {
   name = "jobbatical-eks-minion-profile"
   role = "${aws_iam_role.jobbatical-eks-minion-iam-role.name}"
 }
+
+resource "aws_key_pair" "deployer-key" {
+  key_name   = "deployer-key"
+  public_key = "${file(var.deployerkeyfile)}"
+}

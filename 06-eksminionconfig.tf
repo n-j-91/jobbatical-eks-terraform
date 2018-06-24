@@ -41,6 +41,7 @@ resource "aws_launch_configuration" "jobbatical-eks-minion-lc" {
   image_id                    = "${data.aws_ami.eks-worker.id}"
   instance_type               = "t2.micro"
   name_prefix                 = "jobbatical-eks-minion-lc"
+  key_name                    = "${aws_key_pair.deployer-key.key_name}"
   security_groups             = ["${aws_security_group.jobbatical-eks-minion-sg.id}"]
   user_data_base64            = "${base64encode(local.jobbatical-eks-minion-userdata)}"
 
