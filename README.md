@@ -46,4 +46,18 @@ e. [Optional] A profile name to store the aws credentials. If not specified, a p
 
 ## How to destory
  
-Run terraform destroy
+Run terraform destroy.
+
+You will have to provide the same four parameters that were passed to terraform module during resource creation phase.
+
+1. var.access_key
+  Enter a value: <AWS_ACCESS_KEY>
+
+2. var.deployer_key_file
+  Enter a value: <PATH TO SSH PUBLIC KEY>
+
+3. var.deployer_pvt_key_file
+  Enter a value: <PATH TO SSH PVT KEY> (During destroy, some remote provisioners are running to destroy kubernetes specific resources like services. Hence this is needed to establish remote connetivity to jenkins server.)
+
+4. var.secret_key
+  Enter a value: <AWS_SECRET_KEY>
