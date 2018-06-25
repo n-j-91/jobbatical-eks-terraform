@@ -46,7 +46,7 @@ c. File path to the public key of a key pair.
 d. File path to the private key of a key pair.
 e. [Optional] A profile name to store the aws credentials. If not specified, a profile called "jobbatical" will be created.
 
-## How to destory
+## How to Destroy
  
 Run terraform destroy.
 
