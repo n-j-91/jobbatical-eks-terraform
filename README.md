@@ -27,6 +27,8 @@ Please make sure following tools are installed/configured before trying this.
 
 6. kubectl latest
 
+More information on how to install these dependencies is listed here, https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html
+
 ## How to run
 Execute below commands in order
 
