@@ -1,6 +1,15 @@
 # Jobbatical Kubernetes Assignment
-This terraform module will deploy a EKS cluster on us-east-1 region, making use of two availability zones for the worker nodes.
+This terraform module will deploy an EKS cluster on us-east-1 region, making use of two availability zones for the worker nodes.
+
 Upon successful cluster creation, this will also deploy a containerized mongo in to the provisioned cluster. A jenkins server will be built afterwards with two preloaded jobs for building a simple todo application written in node. 
+
+### Note: Check the console output of terraform run to find the Jenkins server IP, Username and Password.
+
+Run 	build-node-todo to create a new docker image for deployment. You can specify the "branch" to build from and a tag to the new docker image. If not specified, code will be pulled from master branch and docker image will be tagged as "latest"
+
+run deploy-node-todo to deploy a specific image to the node-todo application. You should specify the tag given for the build-node-todo job, if you wish to get artifacts for that particular built. If not specified the image with "latest" tag will be deployed.
+
+### Note: Check console output of deploy-node-todo job to find the application url endpoint.
 
 
 ## Prerequisites
