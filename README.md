@@ -37,11 +37,11 @@ Execute below commands in order
 2. execute "run.sh" script with necessary parameters.
 
 i.e:
-Usage: ./run.sh \
-       <AWS_ACCESS_KEY> \
-       <AWS_SECRET_KEY>  \
-       <PATH_TO_SSH_PUBLIC_KEY> \
-       <PATH_TO_SSH_PVT_KEY> \
+Usage: ./run.sh \\
+       <AWS_ACCESS_KEY> \\
+       <AWS_SECRET_KEY>  \\
+       <PATH_TO_SSH_PUBLIC_KEY> \\
+       <PATH_TO_SSH_PVT_KEY> \\
        [AWS_PROFILE_NAME(default: jobbatical)]
 
 run.sh expects the following.
