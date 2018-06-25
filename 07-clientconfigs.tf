@@ -61,11 +61,11 @@ output "jobbatical-kubeconfig" {
 
 resource "null_resource" "client-configs" {
   provisioner "local-exec" {
-    command = "terraform output jobbatical-kubeconfig > files/jobbatical-kubeconfig"
+    command = "mkdir -p ./files && terraform output jobbatical-kubeconfig > files/jobbatical-kubeconfig"
   }
 
   provisioner "local-exec" {
-    command = "terraform output config-map-aws-auth > files/config-map-aws-auth.yaml"
+    command = "mkdir -p ./files && terraform output config-map-aws-auth > files/config-map-aws-auth.yaml"
   }
 
   depends_on = [
