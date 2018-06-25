@@ -10,5 +10,6 @@ resource "aws_eks_cluster" "jobbatical-eks-cluster" {
   depends_on = [
     "aws_iam_role_policy_attachment.jobbatical-eks-AmazonEKSClusterPolicy",
     "aws_iam_role_policy_attachment.jobbatical-eks-AmazonEKSServicePolicy",
+    "aws_internet_gateway.jobbatical-igw",
   ]
 }

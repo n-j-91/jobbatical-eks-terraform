@@ -115,13 +115,6 @@ resource "aws_instance" "jobbatical-jenkins-server" {
       "echo ${aws_ecr_repository.jobbatical-ecr.repository_url} > ~/dockerregistry",
     ]
   }
-
-  provisioner "remote-exec" {
-    when = "destroy"
-    inline = [
-      "kubectl delete svc node-todo -n jobbatical || true",
-    ]
-    }
 }
 
 output "jenkins-address" {
