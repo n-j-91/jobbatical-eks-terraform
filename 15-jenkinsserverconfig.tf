@@ -62,8 +62,8 @@ resource "aws_instance" "jobbatical-jenkins-server" {
     "aws_security_group.jobbatical-jenkins-sg",
     "aws_internet_gateway.jobbatical-igw",
     "aws_route_table.jobbatical-public-rtb",
-    "aws_route_table.jobbatical-rtb-az-1-asc-1",
-    "aws_route_table.jobbatical-rtb-az-2-asc-1",
+    "aws_route_table_association.jobbatical-rtb-az-1-asc-1",
+    "aws_route_table_association.jobbatical-rtb-az-2-asc-1",
   ]
 
   provisioner "file" {
