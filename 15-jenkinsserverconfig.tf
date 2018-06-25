@@ -55,6 +55,15 @@ resource "aws_instance" "jobbatical-jenkins-server" {
   depends_on = [
     "aws_eks_cluster.jobbatical-eks-cluster",
     "null_resource.client-configs",
+    "aws_subnet.jobbatical-az-1-subnets",
+    "aws_subnet.jobbatical-az-2-subnets",
+    "aws_security_group_rule.jobbatical-jenkins-sg-ingress-ws",
+    "aws_security_group_rule.jobbatical-jenkins-sg-ingress-public",
+    "aws_security_group.jobbatical-jenkins-sg",
+    "aws_internet_gateway.jobbatical-igw",
+    "aws_route_table.jobbatical-public-rtb",
+    "aws_route_table.jobbatical-rtb-az-1-asc-1",
+    "aws_route_table.jobbatical-rtb-az-2-asc-1",
   ]
 
   provisioner "file" {
