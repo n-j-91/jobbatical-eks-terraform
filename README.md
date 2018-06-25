@@ -37,7 +37,12 @@ Execute below commands in order
 2. execute "run.sh" script with necessary parameters.
 
 i.e:
-Usage: ./run.sh <AWS_ACCESS_KEY> <AWS_SECRET_KEY>  <PATH_TO_SSH_PUBLIC_KEY> <PATH_TO_SSH_PVT_KEY> [AWS_PROFILE_NAME(default: jobbatical)]
+Usage: ./run.sh \
+       <AWS_ACCESS_KEY> \
+       <AWS_SECRET_KEY>  \
+       <PATH_TO_SSH_PUBLIC_KEY> \
+       <PATH_TO_SSH_PVT_KEY> \
+       [AWS_PROFILE_NAME(default: jobbatical)]
 
 run.sh expects the following.
 a. Access key for the IAM user created during prereuisites phase.
@@ -55,11 +60,9 @@ You will have to provide the same four parameters that were passed to terraform 
 1. var.access_key
   Enter a value: <AWS_ACCESS_KEY>
 
-2. var.deployer_key_file
-  Enter a value: <PATH TO SSH PUBLIC KEY>
+2. var.deployer_key_file <PATH TO SSH PUBLIC KEY>
 
-3. var.deployer_pvt_key_file
-  Enter a value: <PATH TO SSH PVT KEY> (During destroy, some remote provisioners are running to destroy kubernetes specific resources like services. Hence this is needed to establish remote connetivity to jenkins server.)
+3. var.deployer_pvt_key_file <PATH TO SSH PVT KEY> (During destroy, some remote provisioners are running to destroy kubernetes specific resources like services. Hence this is needed to establish remote connetivity to jenkins server.)
 
 4. var.secret_key
   Enter a value: <AWS_SECRET_KEY>
