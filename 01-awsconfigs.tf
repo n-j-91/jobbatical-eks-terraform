@@ -3,7 +3,7 @@ variable "access_key" {}
 variable "secret_key" {}
 
 variable "region" {
-  default = "us-east-1"
+  default = "us-west-2"
 }
 
 variable "profilename" {
@@ -15,7 +15,7 @@ variable "deployer_key_file" {}
 variable "deployer_pvt_key_file" {}
 
 variable "jenkins_ami" {
-  default = "ami-044585336ce16c109"
+  default = "ami-079e8ddfcebb081ae"
 }
 
 variable "account_owner" {
