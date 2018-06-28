@@ -23,7 +23,7 @@ echo "ADD . /app/" >> Dockerfile
 echo "EXPOSE 8080" >> Dockerfile
 echo "ENTRYPOINT [\"node\",\"/app/server.js\"]" >> Dockerfile
 
-$(aws ecr get-login --no-include-email --region us-east-1 --profile $PROFILE)
+$(aws ecr get-login --no-include-email --region $REGION --profile $PROFILE)
 
 export DOCKER_REGISTRY=$(cat ~/dockerregistry)
 

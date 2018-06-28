@@ -35,7 +35,7 @@ sed -i "s#IMAGEANDTAG#$DOCKER_REGISTRY:$IMAGETAG#" node-todo-deployment.yaml
 
 cat node-todo-deployment.yaml
 
-kubectl delete deployments node-todo -n jobbatical
+kubectl delete deployments node-todo -n jobbatical || true
 
 kubectl apply -f node-todo-deployment.yaml -n jobbatical
 
